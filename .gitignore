@@ -1,0 +1,36 @@
+.gradle/
+.idea/
+local.properties
+build/
+captures/
+*.iml
+app/build/
+# Android / Gradle
+.gradle/
+build/
+*/build/
+local.properties
+.idea/
+*.iml
+
+# Firebase Android config
+app/google-services.json
+
+# Node / Firebase Functions
+functions/node_modules/
+functions/.runtimeconfig.json
+firebase-debug.log
+firebase-debug.*.log
+*.local
+
+# Secrets / credentials
+.env
+.env.*
+*.jks
+*.keystore
+*.p12
+*.pem
+*.key
+*serviceAccount*.json
+*credentials*.json
+*secret*.json

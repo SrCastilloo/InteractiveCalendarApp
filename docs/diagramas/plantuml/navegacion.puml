@@ -1,0 +1,38 @@
+﻿@startuml
+title Diagrama de Navegacion - Calendario Interactivo
+
+skinparam state {
+    BackgroundColor #F8FAFC
+    BorderColor #0F766E
+    FontColor #102A43
+}
+
+[*] --> SplashScreen
+
+SplashScreen --> WelcomeScreen : usuario no autenticado
+SplashScreen --> CalendarScreen : sesion activa
+
+WelcomeScreen --> AuthScreen : comenzar
+
+AuthScreen --> CalendarScreen : login correcto
+AuthScreen --> CalendarScreen : registro correcto
+AuthScreen --> AuthScreen : error de autenticacion
+AuthScreen --> AuthScreen : recuperar contrasena
+
+CalendarScreen --> CreateEventDialog : pulsar boton +
+CreateEventDialog --> CalendarScreen : evento creado
+CreateEventDialog --> CalendarScreen : cancelar
+
+CalendarScreen --> DeleteEventDialog : eliminar evento propio
+DeleteEventDialog --> CalendarScreen : confirmar
+DeleteEventDialog --> CalendarScreen : cancelar
+
+CalendarScreen --> ProfileScreen : editar perfil
+ProfileScreen --> GalleryPicker : seleccionar foto
+GalleryPicker --> ProfileScreen : foto seleccionada
+ProfileScreen --> CalendarScreen : guardar cambios
+ProfileScreen --> CalendarScreen : volver
+
+CalendarScreen --> AuthScreen : cerrar sesion
+
+@enduml

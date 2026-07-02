@@ -1,0 +1,19 @@
+﻿@startsalt
+title Mockup - Pantalla de autenticacion
+
+{
+  {^"Calendario Interactivo"}
+  {^"Organiza eventos, comparte planes y recibe recordatorios"}
+
+  [ Iniciar sesion ] [ Registro ]
+
+  {+
+    Correo electronico | "usuario@email.com"
+    Contrasena         | "********"
+  }
+
+  [ Entrar ]
+
+  {^"Recuperar contrasena"}
+}
+@endsalt

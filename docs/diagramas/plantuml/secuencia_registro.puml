@@ -1,0 +1,41 @@
+﻿@startuml
+title Diagrama de Secuencia - Registro con foto de perfil
+
+actor Usuario
+participant "AuthScreen" as UI
+participant "Selector Galeria" as Galeria
+participant "AppViewModel" as VM
+participant "FirebaseCalendarRepository" as Repo
+participant "Firebase Auth" as Auth
+participant "Firebase Storage" as Storage
+participant "Cloud Firestore" as Firestore
+
+Usuario -> UI : Introduce nombre, correo y contrasena
+Usuario -> UI : Pulsa elegir foto
+UI -> Galeria : abrir selector de imagenes
+Galeria --> UI : devuelve Uri de imagen
+
+Usuario -> UI : Pulsa Crear cuenta
+UI -> VM : register(nombre, email, password, photoUri)
+VM -> Repo : register(...)
+
+Repo -> Auth : createUserWithEmailAndPassword()
+Auth --> Repo : FirebaseUser
+
+alt foto seleccionada
+    Repo -> Storage : subir imagen profile_images/{uid}
+    Storage --> Repo : URL de descarga y ruta interna
+else sin foto
+    Repo -> Repo : usar foto vacia
+end
+
+Repo -> Auth : actualizar displayName y photoUrl
+Repo -> Firestore : guardar users/{uid}
+Firestore --> Repo : confirmacion
+
+Repo --> VM : AppUser
+VM -> VM : actualizar estado
+VM --> UI : registro correcto
+UI -> Usuario : Mostrar calendario
+
+@enduml

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "41368272539",
+    "project_id": "calendariointeractivo-33fa1",
+    "storage_bucket": "calendariointeractivo-33fa1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:41368272539:android:451d925b971d67f431903e",
+        "android_client_info": {
+          "package_name": "com.danielcastillo.calendariointeractivo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6L4pMT2QfcEOlI_VASHuLX9u2u44k3sw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

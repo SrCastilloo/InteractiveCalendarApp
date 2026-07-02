@@ -1,0 +1,84 @@
+﻿@startuml
+title Modelo Conceptual - Calendario Interactivo
+
+skinparam classAttributeIconSize 0
+
+class Usuario {
+    +uid: String
+    +nombre: String
+    +correo: String
+    +fotoUrl: String
+    +fotoStoragePath: String
+    +fechaCreacion: DateTime
+    +fechaActualizacion: DateTime
+}
+
+class Evento {
+    +id: String
+    +titulo: String
+    +descripcion: String
+    +fechaInicio: Date
+    +fechaFin: Date
+    +colorHex: String
+    +fechaCreacion: DateTime
+    +fechaActualizacion: DateTime
+}
+
+class FotoPerfil {
+    +urlDescarga: String
+    +rutaStorage: String
+    +tamano: Long
+    +tipoContenido: String
+}
+
+class TokenNotificacion {
+    +id: String
+    +token: String
+    +plataforma: String
+    +fechaActualizacion: DateTime
+}
+
+class Notificacion {
+    +id: String
+    +tipo: String
+    +titulo: String
+    +mensaje: String
+    +fechaEnvio: DateTime
+}
+
+class Recordatorio {
+    +id: String
+    +fechaProgramada: Date
+    +diasRestantes: Integer
+}
+
+Usuario "1" -- "0..*" Evento : crea >
+Usuario "1" -- "0..*" TokenNotificacion : posee >
+Usuario "1" -- "0..1" FotoPerfil : tiene >
+Evento "1" -- "0..*" Notificacion : genera >
+Evento "1" -- "0..*" Recordatorio : produce >
+Recordatorio "1" -- "1" Notificacion : envia >
+Notificacion "0..*" -- "1..*" Usuario : se entrega a >
+
+note right of Evento
+Restricciones:
+- titulo obligatorio
+- fechaFin >= fechaInicio
+- solo el creador puede eliminarlo
+- puede durar mas de un dia
+end note
+
+note right of Usuario
+Reglas:
+- correo unico
+- perfil modificable solo por su propietario
+- foto de perfil opcional
+end note
+
+note bottom of Recordatorio
+Se genera cuando quedan
+15 dias o menos para
+la fecha de fin del evento.
+end note
+
+@enduml

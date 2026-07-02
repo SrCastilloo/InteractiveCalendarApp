@@ -1,0 +1,17 @@
+﻿@startsalt
+title Mockup - Crear evento
+
+{
+  {^"Nuevo evento"}
+
+  Titulo       | "Entrega documentacion"
+  Descripcion  | "Subir memoria final"
+  Fecha inicio | [ 01/07/2026 ]
+  Fecha fin    | [ 10/07/2026 ]
+
+  Color:
+  [Verde] [Rojo] [Azul] [Amarillo]
+
+  [Cancelar] [Publicar]
+}
+@endsalt

@@ -1,0 +1,52 @@
+﻿@startuml
+title Modelo de Casos de Uso - Calendario Interactivo
+
+left to right direction
+
+actor "Usuario no autenticado" as Invitado
+actor "Usuario autenticado" as Usuario
+actor "Creador del evento" as Creador
+actor "Tiempo / Scheduler" as Tiempo
+
+rectangle "Calendario Interactivo" {
+
+    usecase "Registrarse" as UC1
+    usecase "Iniciar sesion" as UC2
+    usecase "Recuperar contrasena" as UC3
+
+    usecase "Ver calendario" as UC4
+    usecase "Consultar eventos\nde un dia" as UC5
+    usecase "Crear evento" as UC6
+    usecase "Eliminar evento" as UC7
+    usecase "Modificar perfil" as UC8
+    usecase "Seleccionar foto\nde perfil" as UC9
+    usecase "Cerrar sesion" as UC10
+
+    usecase "Recibir notificacion\npor nuevo evento" as UC11
+    usecase "Recibir recordatorio\nde finalizacion" as UC12
+
+    usecase "Enviar notificacion\na otros usuarios" as UC13
+    usecase "Generar recordatorios\ndiarios" as UC14
+}
+
+Invitado --> UC1
+Invitado --> UC2
+Invitado --> UC3
+
+Usuario --> UC4
+Usuario --> UC5
+Usuario --> UC6
+Usuario --> UC8
+Usuario --> UC9
+Usuario --> UC10
+Usuario --> UC11
+Usuario --> UC12
+
+Creador --> UC7
+Tiempo --> UC14
+
+UC6 ..> UC13 : <<include>>
+UC8 ..> UC9 : <<extend>>
+UC14 ..> UC12 : <<include>>
+
+@enduml

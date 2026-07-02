@@ -1,0 +1,23 @@
+﻿@startuml
+title Diagrama de Secuencia - Recordatorios diarios de eventos
+
+actor "Tiempo / Cloud Scheduler" as Tiempo
+participant "Cloud Function\ndailyEventEndingReminders" as Function
+participant "Cloud Firestore" as Firestore
+participant "Firebase Cloud Messaging" as FCM
+actor Usuario
+
+Tiempo -> Function : Ejecutar diariamente a las 09:00
+
+Function -> Firestore : consultar eventos con fechaFin\nentre hoy y hoy + 15 dias
+Firestore --> Function : eventos proximos a finalizar
+
+Function -> Firestore : obtener tokens FCM de usuarios
+Firestore --> Function : tokens registrados
+
+loop por cada evento proximo a finalizar
+    Function -> FCM : enviar recordatorio
+    FCM -> Usuario : notificacion de recordatorio
+end
+
+@enduml

@@ -1,0 +1,33 @@
+﻿@startuml
+title Diagrama de Secuencia - Eliminar evento
+
+actor Usuario
+participant "CalendarScreen" as UI
+participant "AppViewModel" as VM
+participant "FirebaseCalendarRepository" as Repo
+participant "Cloud Firestore" as Firestore
+
+Usuario -> UI : Pulsa eliminar evento
+UI -> Usuario : Solicita confirmacion
+Usuario -> UI : Confirma eliminacion
+
+UI -> VM : deleteEvent(event)
+VM -> Repo : deleteEvent(eventId)
+
+Repo -> Firestore : obtener events/{eventId}
+Firestore --> Repo : datos del evento
+
+alt usuario es creador
+    Repo -> Firestore : delete(events/{eventId})
+    Firestore --> Repo : confirmacion
+    Repo --> VM : exito
+    VM --> UI : evento eliminado
+    UI -> Usuario : Mostrar mensaje de exito
+else usuario no es creador
+    Repo --> VM : error de permisos
+    VM -> VM : generar mensaje amigable
+    VM --> UI : solo puede eliminarlo quien lo creo
+    UI -> Usuario : Mostrar error
+end
+
+@enduml

@@ -1,0 +1,29 @@
+﻿@startsalt
+title Mockup - Pantalla principal del calendario
+
+{
+  {+
+    "Calendario Interactivo"                    [Perfil] [Salir]
+  }
+
+  {
+    [ < ] "Julio 2026" [ > ]
+  }
+
+  {
+    "L" | "M" | "X" | "J" | "V" | "S" | "D"
+    "1" | "2" | "3" | "4" | "5" | "6" | "7"
+    "8" | "9" | "10" | "11" | "12" | "13" | "14"
+    "15" | "16" | "17" | "18" | "19" | "20" | "21"
+    "22" | "23" | "24" | "25" | "26" | "27" | "28"
+  }
+
+  {+
+    "Eventos del dia seleccionado"
+    "* Reunion importante"
+    "* Entrega del proyecto"
+  }
+
+  [ + Crear evento ]
+}
+@endsalt

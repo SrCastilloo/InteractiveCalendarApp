@@ -1,0 +1,34 @@
+﻿@startuml
+title Diagrama de Secuencia - Inicio de sesion
+
+actor Usuario
+participant "AuthScreen" as UI
+participant "AppViewModel" as VM
+participant "FirebaseCalendarRepository" as Repo
+participant "Firebase Auth" as Auth
+participant "Cloud Firestore" as Firestore
+
+Usuario -> UI : Introduce correo y contrasena
+Usuario -> UI : Pulsa Entrar
+
+UI -> VM : login(email, password)
+VM -> Repo : login(email, password)
+Repo -> Auth : signInWithEmailAndPassword(email, password)
+
+alt credenciales correctas
+    Auth --> Repo : FirebaseUser
+    Repo -> Firestore : obtener users/{uid}
+    Firestore --> Repo : datos del usuario
+    Repo --> VM : AppUser
+    VM -> VM : actualizar estado de sesion
+    VM --> UI : estado autenticado
+    UI -> Usuario : Mostrar calendario
+else credenciales incorrectas
+    Auth --> Repo : error de autenticacion
+    Repo --> VM : excepcion
+    VM -> VM : convertir error en mensaje amigable
+    VM --> UI : correo o contrasena incorrectos
+    UI -> Usuario : Mostrar mensaje de error
+end
+
+@enduml

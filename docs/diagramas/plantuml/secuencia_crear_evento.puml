@@ -1,0 +1,38 @@
+﻿@startuml
+title Diagrama de Secuencia - Crear evento y notificar usuarios
+
+actor Usuario
+participant "CalendarScreen" as UI
+participant "AppViewModel" as VM
+participant "FirebaseCalendarRepository" as Repo
+participant "Cloud Firestore" as Firestore
+participant "Cloud Function\nnotifyUsersWhenEventCreated" as Function
+participant "Firebase Cloud Messaging" as FCM
+actor "Otros usuarios" as Otros
+
+Usuario -> UI : Pulsa boton +
+UI -> Usuario : Muestra formulario de evento
+
+Usuario -> UI : Introduce titulo, descripcion,\nfecha inicio, fecha fin y color
+Usuario -> UI : Pulsa Publicar
+
+UI -> VM : createEvent(EventDraft)
+VM -> Repo : createEvent(draft)
+
+Repo -> Firestore : add(events, datosEvento)
+Firestore --> Repo : id del evento creado
+
+Repo --> VM : confirmacion
+VM -> VM : incrementa eventCreatedVisualToken
+VM --> UI : evento creado correctamente
+UI -> Usuario : Mostrar dialogo visual de exito
+
+Firestore -> Function : trigger onDocumentCreated(events/{eventId})
+Function -> Firestore : obtener tokens de usuarios
+Firestore --> Function : tokens FCM
+
+Function -> Function : excluir token del creador
+Function -> FCM : enviar notificacion multicast
+FCM -> Otros : notificacion de nuevo evento
+
+@enduml
