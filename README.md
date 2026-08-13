@@ -16,8 +16,4 @@ Primera version Android en Kotlin + Jetpack Compose para un calendario compartid
 
 
 
-```powershell
-.\gradlew.bat :app:assembleDebug
-```
 
-El `google-services.json` incluido es una plantilla. Reemplazalo por el real antes de probar autenticacion, Firestore, FCM, Crashlytics y Analytics.
